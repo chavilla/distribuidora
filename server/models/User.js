@@ -23,7 +23,6 @@ const User=db.define('users',{
     },
     role:{
         type:DataTypes.ENUM('admin','user'),
-        allowNull:false,
         defaultValue:'user'
     }
 });

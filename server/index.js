@@ -8,6 +8,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 //Routes
 app.use('/api/users/', require('./routes/users'));
+app.use('/api/auth/', require('./routes/auth'));
 
 //databse
 db.authenticate()
