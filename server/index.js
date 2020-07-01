@@ -2,9 +2,13 @@ const express=require('express');
 const app=express();
 const bodyparser=require('body-parser');
 const db=require('./config/database');
+const cors=require('cors');
+
+//Habilitar los cors
+app.use(cors());
 
 //Body parser
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.json());
 
 //Routes
 app.use('/api/users/', require('./routes/users'));

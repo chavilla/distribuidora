@@ -18,11 +18,8 @@ module.exports=async (req,res,next)=>{
         if (!encryption) {
             return res.status(401).json({ msg: 'Token no válido.'});
         }
-        const user=await User.findOne({where:{ id: encryption.id }});
-
-        if (user.dataValues.role!=='admin'){
-            res.status(400).json({msg:'No Tienes permiso para esta acción'});
-        }
+        
+        req.body.encryption=encryption.id;
         
         next();
     } catch (error) {

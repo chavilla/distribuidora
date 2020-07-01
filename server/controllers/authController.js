@@ -6,17 +6,19 @@ const authController={
     loginUser:async (req,res)=>{
         const { email, password }=req.body;
         
+        
         try {
             //Verify by email
             const user=await User.findOne({ where:{ email}});
+
             if (!user){
-                res.status(400).json({msg: 'Usuario o constraseña no válida'});
+                return res.json({msg: 'Usuario o constraseña no válida'});
             }            
 
             //verify by password
             const password_right=await bcryptjs.compare(password, user.dataValues.password);
             if (!password_right) {
-                res.status(400).json({msg: 'Usuario o constraseña no válida'});
+                return res.json({msg: 'Usuario o constraseña no válida'});
             }
 
             //jwt
@@ -34,9 +36,21 @@ const authController={
             
         } catch (error) {
             console.log(error);
-            res.status(500).json({msg:'Hubo un problema en el sevidor'});
+            res.status(500).json({msg:'Hubo un problema en el sevidor de autenticación'});
         }
+    },
 
+    userAuthenticated:async (req,res)=>{
+        const { encryption }=req.body;
+
+        try {
+            const user=await User.findByPk(encryption);
+            res.status(200).json({user});
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({msg:error});
+        }
     }
 }
 
