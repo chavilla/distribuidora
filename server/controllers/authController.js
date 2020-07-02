@@ -9,16 +9,16 @@ const authController={
         
         try {
             //Verify by email
-            const user=await User.findOne({ where:{ email}});
+            let user=await User.findOne({ where:{ email}});
 
-            if (!user){
-                return res.json({msg: 'Usuario o constraseña no válida'});
+            if (user== null){
+                return res.status(404).send({msg: 'Usuario o constraseña no válida'});
             }            
 
             //verify by password
             const password_right=await bcryptjs.compare(password, user.dataValues.password);
             if (!password_right) {
-                return res.json({msg: 'Usuario o constraseña no válida'});
+                return res.status(404).send({msg: 'Usuario o constraseña no válida'});
             }
 
             //jwt
