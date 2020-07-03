@@ -9,10 +9,12 @@ app.use(cors());
 
 //Body parser
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:false}));
 
 //Routes
 app.use('/api/users/', require('./routes/users'));
 app.use('/api/auth/', require('./routes/auth'));
+app.use('/api/products/', require('./routes/products'));
 
 //databse
 db.authenticate()
