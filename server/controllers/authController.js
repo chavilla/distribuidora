@@ -12,18 +12,20 @@ const authController={
             let user=await User.findOne({ where:{ email}});
 
             if (user== null){
-                return res.status(404).send({msg: 'Usuario o constraseña no válida'});
+                return res.status(404).json({msg: 'Usuario o constraseña no válida'});
             }            
 
             //verify by password
             const password_right=await bcryptjs.compare(password, user.dataValues.password);
             if (!password_right) {
-                return res.status(404).send({msg: 'Usuario o constraseña no válida'});
+                return res.status(404).json({msg: 'Usuario o constraseña no válida'});
             }
 
             //jwt
             const payload={
-                id:user.dataValues.id
+                id:user.dataValues.id,
+                name:user.dataValues.name,
+                email:user.dataValues.email
               }
               //Sign the token
               jwt.sign(payload,process.env.SECRETA,{
@@ -41,16 +43,9 @@ const authController={
     },
 
     userAuthenticated:async (req,res)=>{
-        const { encryption }=req.body;
-
-        try {
-            const user=await User.findByPk(encryption);
-            res.status(200).json({user});
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({msg:error});
-        }
+        
+        res.json({user:req.user})
+    
     }
 }
 

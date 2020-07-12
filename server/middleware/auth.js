@@ -1,29 +1,24 @@
-const jwt=require('jsonwebtoken');
-const User=require('../models/User');
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-module.exports=async (req,res,next)=>{
+module.exports = async (req, res, next) => {
+  //Read the token
+  const token = req.header("x-auth-token");
 
-    //Read the token
-    const token=req.header('x-auth-token');
-
-    //verify token
-    if (!token) {
-        return res.status(401).json({ msg: 'Token no válido.'});
-    }
-
+  //verify token
+  if (token) {
     //Validate the token
     try {
-        
-        const encryption=await jwt.verify(token,process.env.SECRETA);
-        if (!encryption) {
-            return res.status(401).json({ msg: 'Token no válido.'});
-        }
-        
-        req.body.encryption=encryption.id;
-        
-        next();
+      const user = await jwt.verify(token, process.env.SECRETA);
+      if (!user) {
+        return res.status(401).json({ msg: "Token no válido." });
+      }
+
+      req.user = user;
+
+      next();
     } catch (error) {
-        console.log('Error ', error);
-        
+      return res.status(401).json({ msg: "Token no válido." });
     }
-}
+  }
+};
