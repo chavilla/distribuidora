@@ -9,7 +9,7 @@ app.use(cors());
 
 //Body parser
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:false}));
+app.use(bodyparser.urlencoded({extended:true}));
 
 //Routes
 app.use('/api/users/', require('./routes/users'));

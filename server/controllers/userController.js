@@ -5,8 +5,9 @@ const { validationResult } = require("express-validator");
 
 const userController = {
   addUser: async (req, res) => {
+
     //if the validation is false
-    const errors = validationResult(req);
+    const errors = validationResult(req.body);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array()});
     }
@@ -23,7 +24,7 @@ const userController = {
 
       if (user_already > 0) {
         res.json({
-          msg: "Ya existe un usuario con este email",
+          error: "Ya existe un usuario con este email",
         });
 
         return;
@@ -35,11 +36,11 @@ const userController = {
       user.dataValues.password = await bcryptjs.hash(password, salt);
       await User.create(user.dataValues);
 
-      res.status(200).json({msg: 'Usuario creado con éxito'});
+      res.status(200).json({success: 'Usuario creado con éxito'});
 
     } catch (error) {
       res.json({
-        msg: error,
+         error,
       });
     }
   }

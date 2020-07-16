@@ -10,7 +10,6 @@ router.post('/',
     check('email','El email no es válido').isEmail(),
     check('password','La contraseña Debe tener al menos 8 caracteres').isLength({min:8})
 ],
-authAdmin,
 userController.addUser
 );
 
