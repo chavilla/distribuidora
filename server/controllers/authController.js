@@ -6,19 +6,18 @@ const authController={
     loginUser:async (req,res)=>{
         const { email, password }=req.body;
         
-        
         try {
             //Verify by email
             let user=await User.findOne({ where:{ email}});
 
             if (user== null){
-                return res.status(404).json({msg: 'Usuario o constraseña no válida'});
+                return res.status(400).json({msg: 'Usuario o constraseña no válida'});
             }            
 
             //verify by password
             const password_right=await bcryptjs.compare(password, user.dataValues.password);
             if (!password_right) {
-                return res.status(404).json({msg: 'Usuario o constraseña no válida'});
+                return res.status(400).json({msg: 'Usuario o constraseña no válida'});
             }
 
             //jwt
@@ -29,7 +28,7 @@ const authController={
               }
               //Sign the token
               jwt.sign(payload,process.env.SECRETA,{
-                expiresIn:3600
+                expiresIn:'4h'
               },(error,token)=>{
                 if (error) throw error;
                 //Msg
