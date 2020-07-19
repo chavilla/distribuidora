@@ -18,6 +18,10 @@ const Product=db.define('products',{
     state:{
         type:Sequelize.ENUM(['available','unavailable']),
         defaultValue:'available'
+    },
+    image:{
+        type:Sequelize.STRING,
+        defaultValue:null
     }
 })
 
