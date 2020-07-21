@@ -59,11 +59,29 @@ const controller = {
   getProducts: async (req, res) => {
     try {
       const products = await Product.findAll();
-      return res.status(200).json({ msg: products });
+      return res.json({products});
     } catch (error) {
       return res.status(500).json({ msg: error });
     }
   },
+
+  //get Image
+  getImage:async (req,res)=>{
+    const file=req.params.image;
+    const pathFile=path.join(__dirname + `../../public/uploads/${file}`);
+    fs.exists(pathFile,(exists)=>{
+      if (exists) {
+        return res.sendFile(path.resolve(pathFile));
+      }
+      else{
+        return res.status(200).json({
+          msg: 'No existe la imagen',
+          pathFile,
+          file
+        })
+      }
+    })
+  }
 };
 
 module.exports = controller;

@@ -33,5 +33,6 @@ router.post(
 
 router.post("/image/:id",upload,productController.uploadImage);
 router.get("/", productController.getProducts);
+router.get('/getImage/:image', productController.getImage);
 
 module.exports = router;
