@@ -25,14 +25,14 @@ router.post(
   "/",
   [
     check("name", "El nombre es un campo requerido").trim().not().isEmpty(),
-    check("price", "El precio debe ser numérico").isFloat(),
-    check("stock", "El stock debe ser numérico").isInt(),
+    check("price", "El precio debe ser numérico").isFloat()
   ],
   productController.saveProduct
 );
 
 router.post("/image/:id",upload,productController.uploadImage);
 router.get("/", productController.getProducts);
-router.get('/getImage/:image', productController.getImage);
+router.get("/getImage/:image", productController.getImage);
+router.get("/car", productController.getCar);
 
 module.exports = router;

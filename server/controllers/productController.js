@@ -5,7 +5,7 @@ const path = require("path");
 
 const controller = {
   saveProduct: async (req, res) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req.body);
     if (!errors.isEmpty()) {
       res.status(400).json({
         errors: errors.array(),
@@ -81,6 +81,25 @@ const controller = {
         })
       }
     })
+  },
+
+  //product by car
+  getCar:async(req,res)=>{
+
+    try {
+      let products_cars=await Product.findAll({
+        where:{
+          car:1
+        }
+      });
+
+      res.json({
+        products: products_cars
+      })
+     
+    } catch (error) {
+      res.status(500).json({msg: 'Hubo un error en el servidor.'})
+    }
   }
 };
 

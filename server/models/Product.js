@@ -22,6 +22,10 @@ const Product=db.define('products',{
     image:{
         type:Sequelize.STRING,
         defaultValue:null
+    },
+    car:{
+        type: Sequelize.TINYINT,
+        defaultValue:0
     }
 })
 
