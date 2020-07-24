@@ -83,6 +83,30 @@ const controller = {
     })
   },
 
+  //update add to car
+  updateCar:async (req,res)=>{
+    const { id }=req.params;
+
+    try {
+      let product=await Product.findByPk(id);
+      let { car }=product.dataValues;
+      console.log(car);
+      if (car===0) {
+        car=1
+      }
+      else{
+        car=0;
+      }
+
+      const updated=Product.update({car}, { where:{ id } });
+
+      return res.json({msg: 'Añadido al carrito'});
+
+    } catch (error) {
+      return res.status(500).json({ msg: error });
+    }
+  },
+
   //product by car
   getCar:async(req,res)=>{
 
