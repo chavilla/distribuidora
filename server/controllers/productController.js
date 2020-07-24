@@ -88,6 +88,7 @@ const controller = {
 
     try {
       let products_cars=await Product.findAll({
+        attributes:['name', 'price', 'stock',],
         where:{
           car:1
         }
