@@ -100,7 +100,11 @@ const controller = {
 
       const updated=Product.update({car}, { where:{ id } });
 
-      return res.json({msg: 'Añadido al carrito'});
+      return res.json(
+        {
+          msg: car===1 ? 'Añadido al carrito.' : 'Se ha quitado del carrito.'
+        }
+      );
 
     } catch (error) {
       return res.status(500).json({ msg: error });
