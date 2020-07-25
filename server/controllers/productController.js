@@ -59,77 +59,69 @@ const controller = {
   getProducts: async (req, res) => {
     try {
       const products = await Product.findAll();
-      return res.json({products});
+      return res.json({ products });
     } catch (error) {
       return res.status(500).json({ msg: error });
     }
   },
 
   //get Image
-  getImage:async (req,res)=>{
-    const file=req.params.image;
-    const pathFile=path.join(__dirname + `../../public/uploads/${file}`);
-    fs.exists(pathFile,(exists)=>{
+  getImage: async (req, res) => {
+    const file = req.params.image;
+    const pathFile = path.join(__dirname + `../../public/uploads/${file}`);
+    fs.exists(pathFile, (exists) => {
       if (exists) {
         return res.sendFile(path.resolve(pathFile));
-      }
-      else{
+      } else {
         return res.status(200).json({
-          msg: 'No existe la imagen',
+          msg: "No existe la imagen",
           pathFile,
-          file
-        })
+          file,
+        });
       }
-    })
+    });
   },
 
   //update add to car
-  updateCar:async (req,res)=>{
-    const { id }=req.params;
+  updateCar: async (req, res) => {
+    const { id } = req.params;
 
     try {
-      let product=await Product.findByPk(id);
-      let { car }=product.dataValues;
-      console.log(car);
-      if (car===0) {
-        car=1
-      }
-      else{
-        car=0;
+      let product = await Product.findByPk(id);
+      let { car } = product.dataValues;
+      if (car === 0) {
+        car = 1;
+      } else {
+        car = 0;
       }
 
-      const updated=Product.update({car}, { where:{ id } });
+      const updated = Product.update({ car }, { where: { id } });
 
-      return res.json(
-        {
-          msg: car===1 ? 'Añadido al carrito.' : 'Se ha quitado del carrito.'
-        }
-      );
-
+      return res.json({
+        msg: car === 1 ? "Añadido al carrito." : "Se ha quitado del carrito.",
+      });
     } catch (error) {
       return res.status(500).json({ msg: error });
     }
   },
 
   //product by car
-  getCar:async(req,res)=>{
-
+  getCar: async (req, res) => {
     try {
-      let products_cars=await Product.findAll({
-        attributes:['name', 'price', 'stock',],
-        where:{
-          car:1
-        }
+      let products_cars = await Product.findAll({
+        attributes: ["name", "price", "stock"],
+        where: {
+          car: 1,
+        },
       });
 
       res.json({
-        products: products_cars
-      })
-     
+        products: products_cars,
+      });
     } catch (error) {
-      res.status(500).json({msg: 'Hubo un error en el servidor.'})
+      res.status(500).json({ msg: "Hubo un error en el servidor." });
     }
-  }
+  },
 };
 
 module.exports = controller;
