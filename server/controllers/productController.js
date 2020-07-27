@@ -109,7 +109,7 @@ const controller = {
   getCar: async (req, res) => {
     try {
       let products_cars = await Product.findAll({
-        attributes: ["name", "price", "stock"],
+        attributes: ["id","name", "price", "stock", "image"],
         where: {
           car: 1,
         },
