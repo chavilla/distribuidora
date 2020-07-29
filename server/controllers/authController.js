@@ -24,7 +24,8 @@ const authController={
             const payload={
                 id:user.dataValues.id,
                 name:user.dataValues.name,
-                email:user.dataValues.email
+                email:user.dataValues.email,
+                role: user.dataValues.role
               }
               //Sign the token
               jwt.sign(payload,process.env.SECRETA,{
