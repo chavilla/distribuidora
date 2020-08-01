@@ -7,7 +7,7 @@ const controller = {
   saveProduct: async (req, res) => {
     const errors = validationResult(req.body);
     if (!errors.isEmpty()) {
-      res.status(400).json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     }
@@ -29,6 +29,8 @@ const controller = {
     //producto para actualizar
     const productId = req.params.id;
 
+    console.log(req.file);
+
     if (req.file) {
       const filePath = req.file.path;
       const fullName = req.file.originalname;
@@ -40,7 +42,7 @@ const controller = {
         .split("/")[1];
 
       if (extension == ".png" || extension == ".gif" || extension == ".jpg") {
-        const product = await Product.findByPk(req.params.id);
+        const product = await Product.findByPk(productId);
         product.image = finalName;
 
         await product.save();
