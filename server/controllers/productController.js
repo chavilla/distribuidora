@@ -41,7 +41,7 @@ const controller = {
         .substring(filePath.lastIndexOf("/", filePath.length))
         .split("/")[1];
 
-      if (extension == ".png" || extension == ".gif" || extension == ".jpg") {
+      if (extension === ".png" || extension === ".gif" || extension === ".jpg" || extension===".jpeg" ) {
         const product = await Product.findByPk(productId);
         product.image = finalName;
 
