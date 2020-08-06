@@ -9,28 +9,17 @@ Car.init({
     id:{
         primaryKey:true,
         allowNull:false,
-        type:DataTypes.UUID,
-        defaultValue:DataTypes.UUIDV1
+        type:DataTypes.STRING
+    },
+    userId:{
+        type:DataTypes.UUID
+    },
+    productId:{
+        type: DataTypes.INTEGER
     }
 },{
    sequelize,
    modelName: 'car'
 });
-
-/* Car.belongsTo(Product,{
-    primaryKey:'productId'
-}); */
-
-// Car.associate=(model)=>{
-//     Car.hasMany(model.Product,{
-//         OnDelete:'CASCADE'
-//     })
-// }
-
-/* Car.hasMany(Product,{
-    primaryKey:'productId'
-}) */
-
-
 
 module.exports=Car;

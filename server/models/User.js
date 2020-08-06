@@ -1,6 +1,5 @@
 const {Model, DataTypes}=require('sequelize');
 const sequelize=require('../config/database');
-const Car=require('./Car');
 
 class User extends Model{}
 
@@ -8,8 +7,7 @@ User.init({
     id:{
         primaryKey:true,
         allowNull:false,
-        type:DataTypes.UUID,
-        defaultValue:DataTypes.UUIDV4
+        type:DataTypes.STRING
     },
     name:{
         type: DataTypes.STRING,

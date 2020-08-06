@@ -19,7 +19,7 @@ app.use('/api/products/', require('./routes/products'));
 app.use('/api/car/', require('./routes/car'));
 
 //databse
-sequelize.sync({force:true})
+sequelize.sync({force:false})
 .then(()=>{ console.log('Conectado a la base de datos');
 })
 .catch(error=> console.log(error)

@@ -5,6 +5,6 @@ const router=express.Router();
 
 router.post('/', carController.addProduct);
 router.delete('/:id', carController.deleteProduct);
-router.get('/', carController.getProductCar);
+router.get('/:userId', carController.getProductCar);
 
 module.exports=router;

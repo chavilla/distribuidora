@@ -1,19 +1,27 @@
 const Car=require('../models/Car');
 const User=require('../models/User');
+const sequelize=require('../config/database');
 const Product = require('../models/Product');
+const shortid=require("shortid");
 
 const carController={
     addProduct:async (req,res)=>{
 
+        //Destructuing to the req.body
+        const { userId, productId } = req.body;
+
         try{
-            let car=new Car(req.body);
-            const { id, userId, productId }=car.dataValues;
-            let carStored=await Car.create({
-                id,
+            const id_to_car=shortid.generate();
+            
+            let car=new Car({
+                id:id_to_car,
                 userId,
-                productId: parseInt(productId)
+                productId:parseInt(productId)
             });
+
+            let carStored=await Car.create(car.dataValues);
             return res.json(carStored);
+
         }catch(error){
             return res.status(500).json(error);
         }
@@ -39,15 +47,12 @@ const carController={
 
     getProductCar:async (req,res)=>{
         try {
+            const idUser=String(req.params.userId);
+            const result=await sequelize.query(`SELECT c.id as idCar, c.userId,p.name, p.price, p.stock FROM cars c INNER JOIN products p ON p.id=c.productId INNER JOIN users u ON u.id=c.userId where c.userId='${idUser}'`);
 
-            const car=await Car.findAll({
-               include: [{
-                   association: User,
-                   attributes: ['name']
-               }]
-            });
+            const rows=result[0];
 
-            res.json(car);
+            res.json(rows);
 
         } catch (error) {
             return res.status(500).json(error);

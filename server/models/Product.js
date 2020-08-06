@@ -41,13 +41,8 @@ Product.init({
     modelName:'product'
   });
 
-  /* Product.associate=(model)=>{
-    Product.hasMany(model.Car,{
-        OnDelete:'CASCADE'
-    })
-  } */
- /* - */
-
-  
+ /*  Product.hasMany(Car,{
+      primaryKey:'productId'
+  }) */
 
 module.exports = Product;

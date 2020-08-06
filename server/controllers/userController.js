@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require("express-validator");
+const shortid=require("shortid");
 
 const userController = {
   addUser: async (req, res) => {
@@ -27,15 +28,24 @@ const userController = {
         return;
       }
 
+      const id_to_user=shortid.generate();
+
       // if there is not errors create an user
-      const user = new User({ name, email, password, role });
+      const user = new User({
+        id:id_to_user,
+        name,
+        email,
+        password,
+        role
+      });
+
       const salt = await bcryptjs.genSalt(10);
       user.dataValues.password = await bcryptjs.hash(password, salt);
       await User.create(user.dataValues);
 
       res.json({ msg: "Usuario creado con éxito" });
     } catch (error) {
-      res.status(500).json({ msg: "Error en el servidor" });
+      res.status(500).json({ msg: error });
     }
   },
 };
