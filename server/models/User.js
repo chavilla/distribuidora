@@ -1,7 +1,9 @@
-const {Sequelize, DataTypes}=require('sequelize');
-const db=require('../config/database');
+const {Model, DataTypes}=require('sequelize');
+const sequelize=require('../config/database');
 
-const User=db.define('users',{
+class User extends Model{}
+
+User.init({
     id:{
         primaryKey:true,
         allowNull:false,
@@ -25,6 +27,9 @@ const User=db.define('users',{
         type:DataTypes.ENUM('admin','user'),
         defaultValue:'user'
     }
+},{
+    sequelize,
+    modelName:'user'
 });
 
 module.exports=User;

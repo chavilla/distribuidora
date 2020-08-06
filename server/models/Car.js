@@ -1,8 +1,25 @@
-const Sequelize=require('sequelize');
-const db=require('../config/database');
+const  {Model,DataTypes}=require('sequelize');
+const sequelize=require('../config/database');
 
-const Car=db.define('car',{
-    
+class Car extends Model{}
+
+Car.init({
+    id:{
+        primaryKey:true,
+        allowNull:false,
+        type:DataTypes.UUID,
+        defaultValue:DataTypes.UUIDV1
+    },
+    productId:{
+        type:DataTypes.INTEGER
+    },
+    userId:{
+        type: DataTypes.UUID
+    }
+},{
+    sequelize,
+    modelName:'car'
 });
 
-export default Car;
+
+module.exports=Car;
