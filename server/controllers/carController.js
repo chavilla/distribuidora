@@ -1,4 +1,5 @@
 const Car=require('../models/Car');
+const User=require('../models/User');
 const Product = require('../models/Product');
 
 const carController={
@@ -39,13 +40,14 @@ const carController={
     getProductCar:async (req,res)=>{
         try {
 
-            let car=await Car.findAll({
-                include:[{
-                    model:'user'
-                }]
+            const car=await Car.findAll({
+               include: [{
+                   association: User,
+                   attributes: ['name']
+               }]
             });
 
-            res.json({car});
+            res.json(car);
 
         } catch (error) {
             return res.status(500).json(error);

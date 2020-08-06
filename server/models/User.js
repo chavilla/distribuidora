@@ -1,5 +1,6 @@
 const {Model, DataTypes}=require('sequelize');
 const sequelize=require('../config/database');
+const Car=require('./Car');
 
 class User extends Model{}
 
@@ -31,5 +32,9 @@ User.init({
     sequelize,
     modelName:'user'
 });
+
+/* User.hasMany(Car,{
+    primaryKey:'userId'
+}) */
 
 module.exports=User;

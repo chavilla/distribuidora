@@ -1,5 +1,6 @@
 const {Model, DataTypes} = require("sequelize");
 const sequelize = require("../config/database");
+const Car=require('./Car')
 
 class Product extends Model{}
 
@@ -34,9 +35,19 @@ Product.init({
       type: DataTypes.TINYINT,
       defaultValue: 0,
     },
-  },{
-      sequelize,
-      modelName:'product'
+  },
+  {
+    sequelize,
+    modelName:'product'
   });
+
+  /* Product.associate=(model)=>{
+    Product.hasMany(model.Car,{
+        OnDelete:'CASCADE'
+    })
+  } */
+ /* - */
+
+  
 
 module.exports = Product;

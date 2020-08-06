@@ -3,6 +3,7 @@ const app=express();
 const bodyparser=require('body-parser');
 const db=require('./config/database');
 const cors=require('cors');
+const sequelize=require('./config/database');
 
 //Habilitar los cors
 app.use(cors());
@@ -18,7 +19,7 @@ app.use('/api/products/', require('./routes/products'));
 app.use('/api/car/', require('./routes/car'));
 
 //databse
-db.authenticate()
+sequelize.sync({force:true})
 .then(()=>{ console.log('Conectado a la base de datos');
 })
 .catch(error=> console.log(error)
