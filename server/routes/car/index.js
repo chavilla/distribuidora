@@ -3,7 +3,7 @@ const express=require('express');
 const router=express.Router();
 
 
-router.post('/', carController.addProduct);
+router.post('/',carController.addProduct);
 router.delete('/:id', carController.deleteProduct);
 router.get('/:userId', carController.getProductCar);
 
