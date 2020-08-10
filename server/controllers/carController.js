@@ -57,7 +57,7 @@ const carController={
     getProductCar:async (req,res)=>{
         try {
             const idUser=String(req.params.userId);
-            const result=await sequelize.query(`SELECT c.id as idCar, c.userId,p.name, p.price, p.image, p.stock FROM cars c INNER JOIN products p ON p.id=c.productId INNER JOIN users u ON u.id=c.userId where c.userId='${idUser}'`);
+            const result=await sequelize.query(`SELECT c.id as idCar, c.userId, c.productId, p.name, p.price, p.image, p.stock FROM cars c INNER JOIN products p ON p.id=c.productId INNER JOIN users u ON u.id=c.userId where c.userId='${idUser}'`);
 
             const products_car=result[0];
 
