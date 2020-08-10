@@ -3,7 +3,7 @@ const shorId=require('shortid');
 const saleController={
 
     addSale:async (req,res)=>{
-        const { products,userId,total }=req.body;
+        const { payment,products,userId,total }=req.body;
 
         try {
 
@@ -12,10 +12,13 @@ const saleController={
 
             const sale=new Sale({
                 id,
+                payment,
                 products,
                 userId,
                 total
             });
+
+            console.log(sale);
 
             const saleStored=await Sale.create(sale.dataValues);
 

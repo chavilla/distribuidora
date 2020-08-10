@@ -9,6 +9,10 @@ Sale.init({
         type:DataTypes.STRING,
         primaryKey:true
     },
+    payment:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
     products: {
       type: DataTypes.STRING,
       allowNull: false,
