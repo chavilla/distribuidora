@@ -17,6 +17,7 @@ app.use('/api/users/', require('./routes/users'));
 app.use('/api/auth/', require('./routes/auth'));
 app.use('/api/products/', require('./routes/products'));
 app.use('/api/car/', require('./routes/car'));
+app.use('/api/sales/', require('./routes/sales'));
 
 //databse
 sequelize.sync({force:false})
