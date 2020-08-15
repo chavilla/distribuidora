@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwt=require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const shortid=require("shortid");
@@ -43,7 +44,22 @@ const userController = {
       user.dataValues.password = await bcryptjs.hash(password, salt);
       await User.create(user.dataValues);
 
-      res.json({ msg: "Usuario creado con éxito" });
+      //jwt
+      const payload={
+        id:user.dataValues.id,
+        name:user.dataValues.name,
+        email:user.dataValues.email,
+        role: user.dataValues.role
+      }
+      //Sign the token
+      jwt.sign(payload,process.env.SECRETA,{
+        expiresIn:'4h'
+      },(error,token)=>{
+        if (error) throw error;
+        //Msg
+        res.json({token});
+      });
+
     } catch (error) {
       res.status(500).json({ msg: error });
     }

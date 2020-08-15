@@ -3,11 +3,12 @@ const User = require("../models/User");
 
 module.exports = async (req, res, next) => {
   //Read the token
-  const token = req.header("x-auth-token");
+  const authHeader = req.get("Authorization");
 
   //verify token
-  if (token) {
+  if (authHeader) {
     //Validate the token
+    const token=authHeader.split(' ')[1];
     try {
       const user = await jwt.verify(token, process.env.SECRETA);
       if (!user) {
