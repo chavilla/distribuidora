@@ -61,6 +61,7 @@ const controller = {
   getProducts: async (req, res) => {
     try {
       const products = await Product.findAll();
+      console.log(products);
       return res.json({ products });
     } catch (error) {
       return res.status(500).json({ msg: error });

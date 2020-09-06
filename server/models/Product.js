@@ -30,11 +30,7 @@ Product.init({
     image: {
       type: DataTypes.STRING,
       defaultValue: null,
-    },
-    car: {
-      type: DataTypes.TINYINT,
-      defaultValue: 0,
-    },
+    }
   },
   {
     sequelize,
