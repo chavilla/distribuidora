@@ -12,6 +12,8 @@ const controller = {
       });
     }
 
+    console.log(req.body); return;
+
     try {
       const product = new Product(req.body);
       const productStored = await Product.create(product.dataValues);
@@ -61,7 +63,6 @@ const controller = {
   getProducts: async (req, res) => {
     try {
       const products = await Product.findAll();
-      console.log(products);
       return res.json({ products });
     } catch (error) {
       return res.status(500).json({ msg: error });
@@ -125,6 +126,18 @@ const controller = {
       res.status(500).json({ msg: "Hubo un error en el servidor." });
     }
   },
+
+  //Obtiene el número de productos
+  getCountProducts: async(req,res)=>{
+    let count;
+    try {
+      count=await Product.findAndCountAll();
+      return res.json(count);
+    } catch (error) {
+      res.status(500).json({ msg: "Hubo un error en el servidor." });
+    }
+  }
+
 };
 
 module.exports = controller;

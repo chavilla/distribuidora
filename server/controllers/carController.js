@@ -7,7 +7,6 @@ const shortid=require("shortid");
 const carController={
 
     addProduct:async (req,res)=>{
-
         //Destructuing to the req.body
         const userId=req.body.userId;
         const productId=parseInt(req.body.productId);
@@ -38,7 +37,6 @@ const carController={
 
     deleteProduct:async (req,res)=>{
         try {
-
             //Buscamos el registro del carrito por id
             const finder=await Car.findOne({
                     id:req.params.id
