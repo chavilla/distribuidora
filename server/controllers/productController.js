@@ -12,17 +12,32 @@ const controller = {
       });
     }
 
-    console.log(req.body); return;
+    console.log(req.body);
+    const { name, price, stock }=req.body;
 
     try {
-      const product = new Product(req.body);
+      
+      const product_already = await Product.count({
+        where: { name },
+      });
+
+      if (product_already) {
+          res.status(400).json({
+            msg: "!Error. Ya existe un producto con el nombre que introduciste"
+          });
+
+          return;
+      }
+
+      const product = new Product({ name, price, stock  });
       const productStored = await Product.create(product.dataValues);
 
       res.status(200).json({
-        productStored,
+        productStored
       });
+
     } catch (error) {
-      res.status(500).json({ msg: error });
+      res.status(500).json({ msg: "Upss.Tenemos un problema en el servidor." });
     }
   },
 
@@ -49,7 +64,7 @@ const controller = {
 
         await product.save();
 
-        res.json(product);
+        res.json({product, msg:"!Qué bien. Producto guardado exitosamente."});
       } else {
         fs.unlinkSync(
           path.join(__dirname + `../../public/uploads/${finalName}`)
