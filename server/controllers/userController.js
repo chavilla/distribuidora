@@ -40,6 +40,7 @@ const userController = {
         role
       });
 
+      //bcrypt the password
       const salt = await bcryptjs.genSalt(10);
       user.dataValues.password = await bcryptjs.hash(password, salt);
       await User.create(user.dataValues);
@@ -51,6 +52,7 @@ const userController = {
         email:user.dataValues.email,
         role: user.dataValues.role
       }
+      
       //Sign the token
       jwt.sign(payload,process.env.SECRETA,{
         expiresIn:'4h'
