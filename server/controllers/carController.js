@@ -37,6 +37,9 @@ const carController={
 
     deleteProduct:async (req,res)=>{
         try {
+
+            console.log(req); return;
+
             //Buscamos el registro del carrito por id
             const finder=await Car.findOne({
                     id:req.params.id
