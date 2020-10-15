@@ -38,8 +38,6 @@ const carController={
     deleteProduct:async (req,res)=>{
         try {
 
-            console.log(req.params);
-
             //Buscamos el registro del carrito por id
             const finder=await Car.findOne({
                 where:{
@@ -48,8 +46,6 @@ const carController={
             });
 
             if(req.user.id!==finder.dataValues.userId){
-                console.log(req.user.id);
-                console.log(finder.dataValues.userId);
                 return res.status(401).json({
                     msg: 'No autorizado para esta acción'
                 });
