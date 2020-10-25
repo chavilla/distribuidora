@@ -1,35 +1,29 @@
-const Sale=require('../models/Sale');
-const shorId=require('shortid');
-const saleController={
+const Sale = require("../models/Sale");
+const shorId = require("shortid");
+const saleController = {
+  addSale: async (req, res) => {
+    const { payment, products, userId, total } = req.body;
 
-    addSale:async (req,res)=>{
-        const { payment,products,userId,total }=req.body;
+    try {
+      //Se genera un id
+      const id = shorId.generate();
 
-        try {
+      const sale = new Sale({
+        id,
+        payment,
+        products,
+        userId,
+        total,
+      });
 
-            //Se genera un id
-            const id=shorId.generate();
+      const saleStored = await Sale.create(sale.dataValues);
 
-            const sale=new Sale({
-                id,
-                payment,
-                products,
-                userId,
-                total
-            });
-
-            console.log(sale);
-
-            const saleStored=await Sale.create(sale.dataValues);
-
-            res.json(saleStored);
-            
-        } catch (error) {
-            res.status(500).json(error);
-        }
+      res.json(saleStored);
+    } catch (error) {
+      res.status(500).json(error);
     }
-
-}
+  },
+};
 
 
 module.exports=saleController;

@@ -11,8 +11,6 @@ const controller = {
         errors: errors.array(),
       });
     }
-
-    console.log(req.body);
     const { name, price, stock }=req.body;
 
     try {
