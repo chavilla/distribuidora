@@ -8,8 +8,7 @@ Product.init({
     id:{
         type:DataTypes.INTEGER,
         autoIncrement:true,
-        primaryKey:true,
-        defaultValue:null
+        primaryKey:true
     },
     name: {
       type: DataTypes.STRING,
@@ -24,6 +23,12 @@ Product.init({
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+
+    category: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
+
     state: {
       type: DataTypes.ENUM(["available", "unavailable"]),
       defaultValue: "available",
