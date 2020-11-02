@@ -25,7 +25,8 @@ router.post(
   "/",
   [
     check("name", "El nombre es un campo requerido").trim().not().isEmpty(),
-    check("price", "El precio debe ser numérico").isFloat()
+    check("price", "El precio debe ser numérico").isFloat(),
+    check("category", "La categoría es campo requerido").trim().not().isEmpty()
   ],
   productController.saveProduct
 );

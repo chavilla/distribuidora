@@ -5,13 +5,16 @@ const path = require("path");
 
 const controller = {
   saveProduct: async (req, res) => {
+    
     const errors = validationResult(req.body);
+    
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
       });
     }
-    const { name, price, stock }=req.body;
+
+    const { name, price, stock, category }=req.body;
 
     try {
       
@@ -27,7 +30,7 @@ const controller = {
           return;
       }
 
-      const product = new Product({ name, price, stock  });
+      const product = new Product({ name, price, stock, category });
       const productStored = await Product.create(product.dataValues);
 
       res.status(200).json({
@@ -35,7 +38,7 @@ const controller = {
       });
 
     } catch (error) {
-      res.status(500).json({ msg: "Upss.Tenemos un problema en el servidor." });
+      res.status(500).json({ msg: "Upss.Tenemos un problema en el servidor.", error });
     }
   },
 

@@ -25,7 +25,7 @@ Product.init({
     },
 
     category: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(["Juguetes", "Hogar", "Ropa"]),
       allowNull:false
     },
 

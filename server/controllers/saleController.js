@@ -1,4 +1,5 @@
 const Sale = require("../models/Sale");
+const Product = require("../models/Product");
 const shorId = require("shortid");
 const saleController = {
   addSale: async (req, res) => {
@@ -17,6 +18,9 @@ const saleController = {
       });
 
       const saleStored = await Sale.create(sale.dataValues);
+
+      if (saleStored) {
+      }
 
       res.json(saleStored);
     } catch (error) {
