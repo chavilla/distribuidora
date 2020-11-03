@@ -33,6 +33,7 @@ router.post(
 
 router.post("/image/:id",upload,productController.uploadImage);
 router.get("/", productController.getProducts);
+router.get("/:category", productController.getProductsByCategory);
 router.get("/getImage/:image", productController.getImage);
 router.get("/car", productController.getCar);
 router.get("/count", productController.getCountProducts);

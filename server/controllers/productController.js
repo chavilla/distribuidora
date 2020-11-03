@@ -85,6 +85,31 @@ const controller = {
     }
   },
 
+  //get products by category
+  getProductsByCategory: async (req,res)=>{
+    try {
+      
+      //destructuring
+      const { category }=req.query;
+
+      // query
+
+      const product=await Product.findAll({
+        where:{
+          category
+        }
+      });
+
+      console.log(product);
+
+      // send json
+      return res.status(200).json(product);
+
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  },
+
   //get Image
   getImage: async (req, res) => {
     const file = req.params.image;
